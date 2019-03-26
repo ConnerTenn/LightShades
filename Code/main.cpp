@@ -36,9 +36,9 @@ int main()
 			}
 		}
 		
+		Shades.Update(GetMilliseconds());
 		
 		ForceClear();
-		
 		
 		Shades.Draw(100, 100);
 		

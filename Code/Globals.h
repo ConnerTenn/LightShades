@@ -48,18 +48,20 @@ inline double mmod(double a, double m)
 
 struct RGB
 {
-	u_int8_t R;
-	u_int8_t G;
-	u_int8_t B;
-	u_int64_t XColour();
+	u8 R;
+	u8 G;
+	u8 B;
 };
 
-struct HSLA
+u_int64_t XColour(RGB colour);
+
+struct HSL
 {
 	double Hue;
 	double Saturation;
 	double Lightness;
-	double Amplitude;
+	
+	HSL(double hue, double saturation=1.0, double lightness=0.5);
 	RGB operator()();
 };
 
@@ -84,7 +86,7 @@ inline double Bistable(double x, double a)
 	return x<0 ? 0 : (x<a && a!=0 ? x/a : 1);
 }
 
-inline RGB RGBfromHSLA(HSLA val)
+/*inline RGB RGBfromHSL(HSL val)
 {
 	double c = (1.0-abs(2*val.Lightness-1))*val.Saturation;
 	double h = val.Hue*6.0;
@@ -101,7 +103,7 @@ inline RGB RGBfromHSLA(HSLA val)
 	else if	(h <= 6.0) { r=c; g=0; b=x; }
 	
 	return {(u8)((r+m)*a), (u8)((g+m)*a), (u8)((b+m)*a)};
-}
+}*/
 
 
 template<class T, int N>

@@ -1,9 +1,9 @@
 
 #include "WindowController.h"
 
-u_int64_t RGB::XColour()
+u_int64_t XColour(RGB colour)
 {
-	return (B<<8*0) | (G<<8*1) | (R<<8*2) | (0xff<<8*3);
+	return (colour.B<<8*0) | (colour.G<<8*1) | (colour.R<<8*2) | (0xff<<8*3);
 }
 
 Window Win;
@@ -84,7 +84,7 @@ void ForceClear()
 void DrawPixel(int x, int y, RGB colour)
 {
 	XGCValues values;
-	values.foreground = colour.XColour();
+	values.foreground = XColour(colour);
 	unsigned long mask = GCForeground;
 	GC gc = XCreateGC(Disp, Win, mask, &values);
 	XDrawPoint(Disp, Win, gc, x, y);
@@ -93,7 +93,7 @@ void DrawPixel(int x, int y, RGB colour)
 void DrawRectangle(int x, int y, int w, int h, RGB colour)
 {
 	XGCValues values;
-	values.foreground = colour.XColour();
+	values.foreground = XColour(colour);
 	unsigned long mask = GCForeground;
 	GC gc = XCreateGC(Disp, Win, mask, &values);
 	XFillRectangle(Disp, Win, gc, x, y, w, h);
@@ -102,7 +102,7 @@ void DrawRectangle(int x, int y, int w, int h, RGB colour)
 void OutlineRectangle(int x, int y, int w, int h, RGB colour)
 {
 	XGCValues values;
-	values.foreground = colour.XColour();
+	values.foreground = XColour(colour);
 	unsigned long mask = GCForeground;
 	GC gc = XCreateGC(Disp, Win, mask, &values);
 	XDrawRectangle(Disp, Win, gc, x, y, w, h);
@@ -111,7 +111,7 @@ void OutlineRectangle(int x, int y, int w, int h, RGB colour)
 void DrawLine(int x1, int y1, int x2, int y2, RGB colour)
 {
 	XGCValues values;
-	values.foreground = colour.XColour();
+	values.foreground = XColour(colour);
 	unsigned long mask = GCForeground;
 	GC gc = XCreateGC(Disp, Win, mask, &values);
 	XDrawLine(Disp, Win, gc, x1, y1, x2, y2);
@@ -132,7 +132,7 @@ void DrawText(int x, int y, std::string text, RGB colour)
 	
 	//
 	XGCValues values;
-	values.foreground = colour.XColour();
+	values.foreground = XColour(colour);
 	//values.font = font->fid;
 	unsigned long mask = GCForeground;// | GCFont;
 	GC gc = XCreateGC(Disp, Win, mask, &values);

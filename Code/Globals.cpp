@@ -16,8 +16,11 @@ i64 GetNanoseconds()
 
 i64 StartTime = GetMicroseconds();
 
+HSL::HSL(double hue, double saturation, double lightness) :
+	Hue(hue), Saturation(saturation), Lightness(lightness)
+{ }
 
-RGB HSLA::operator()()
+RGB HSL::operator()()
 {
 	double c = (1.0-abs(2*Lightness-1))*Saturation;
 	double h = Hue*6.0;
@@ -31,7 +34,8 @@ RGB HSLA::operator()()
 	else if	(4.0 <  h && h <= 5.0) { r=x; g=0; b=c; }
 	else if	(5.0 <  h && h <= 6.0) { r=c; g=0; b=x; }
 	double m = Lightness-c/2.0;
-	return {(u8)(255.0*(r+m)*Amplitude), (u8)(255.0*(g+m)*Amplitude), (u8)(255.0*(b+m)*Amplitude)};
+	//return {(u8)(255.0*(r+m)*Amplitude), (u8)(255.0*(g+m)*Amplitude), (u8)(255.0*(b+m)*Amplitude)};
+	return {(u8)(255.0*(r+m)), (u8)(255.0*(g+m)), (u8)(255.0*(b+m))};
 }
 
 
