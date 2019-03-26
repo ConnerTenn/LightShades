@@ -5,7 +5,7 @@
 class ShadesController
 {
 public:
-	const static int Width = 25, Height = 5; 
+	const static int Width = 25, Height = 9; 
 	RGB Lights[Height][Width];
 	
 	ShadesController();
