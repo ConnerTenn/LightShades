@@ -36,7 +36,7 @@ int main()
 			}
 		}
 		
-		Shades.Update(GetMilliseconds()-StartTime/1000);
+		Shades.Update(GetMilliseconds());
 		
 		ForceClear();
 		

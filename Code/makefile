@@ -9,10 +9,13 @@ CFLAGS = -O3 -D GRAPHICAL#-I ../libmad/ -I ../../PixelTerm
 
 all: program
 
-program: main.o WindowController.o ShadesController.o Globals.o
+program: main.o Animations.o ShadesController.o WindowController.o Globals.o
 	$(GPP) $(CFLAGS) $^ $(LIBS) $(LXTERMLIBS) -o $@
 	
 main.o: main.cpp ShadesController.h Globals.h
+	$(GPP) $(CFLAGS) $< -c -o $@
+	
+Animations.o: Animations.cpp ShadesController.h Globals.h
 	$(GPP) $(CFLAGS) $< -c -o $@
 	
 ShadesController.o: ShadesController.cpp ShadesController.h Globals.h
