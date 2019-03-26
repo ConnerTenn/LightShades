@@ -5,7 +5,7 @@ ShadesController::ShadesController()
 {
 	for (int i = 0; i < Width*Height; i++)
 	{
-		((RGB *)Lights)[i] = HSL((double)i/(Width*Height))();
+		((RGB *)Lights)[i] = {0,0,0};//HSL((double)i/(Width*Height))();
 	}
 	
 	AnimStartTime = GetMilliseconds();
@@ -15,7 +15,7 @@ void ShadesController::CopyFrame(u8 src[Height][Width])
 {
 	for (int i = 0; i < Width*Height; i++)
 	{
-		((RGB *)Lights)[i] = ( ((u8 *)src)[i] ? RGB{255,255,255} : ((RGB *)Lights)[i] );
+		((RGB *)Lights)[i] = ((u8 *)src)[i] ? RGB{255,255,255} : RGB{0,0,0};
 	}
 }
 
@@ -26,9 +26,37 @@ void ShadesController::CopyFrame(RGB src[Height][Width])
 		((RGB *)Lights)[i] = ((RGB *)src)[i];
 	}
 }
+void ShadesController::CopySubFrame(u8 *src, int w, int h, int xDest, int yDest)
+{
+	for (int y = 0; y < h; y++)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Lights[y+yDest][x+xDest] = src[y*w+x] ? RGB{255,255,255} : RGB{0,0,0};
+		}
+	}
+}
+void ShadesController::CopySubFrame(RGB *src, int w, int h, int xDest, int yDest)
+{
+	for (int y = 0; y < h; y++)
+	{
+		for (int x = 0; x < w; x++)
+		{
+			Lights[y+yDest][x+xDest] = src[y*w+x];
+		}
+	}
+}
 
 void ShadesController::Update(i64 now)
 {
+	if (NextState!=AnimState::Null)
+	{
+		LastState = CurrState;
+		CurrState = NextState;
+		
+		AnimStartTime = now;
+		NextState = AnimState::Null;
+	} 
 	
 	switch (CurrState)
 	{

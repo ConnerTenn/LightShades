@@ -24,13 +24,15 @@ public:
 		Test, 
 	};
 	
-	AnimState CurrState = Test, NextState = Null;
+	AnimState CurrState = AnimState::Idle, NextState = AnimState::Null, LastState = AnimState::Null;
 	i64 AnimStartTime = 0;
 	
 	ShadesController();
 	
 	void CopyFrame(u8 src[Height][Width]);
 	void CopyFrame(RGB src[Height][Width]);
+	void CopySubFrame(u8 *src, int w, int h, int xDest, int yDest);
+	void CopySubFrame(RGB *src, int w, int h, int xDest, int yDest);
 	void Update(i64 now);
 	
 	void AnimateIdle(i64 now);

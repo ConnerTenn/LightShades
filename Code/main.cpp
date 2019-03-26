@@ -27,6 +27,11 @@ int main()
 			{ 
 				key = GetKeyPressed(&event); 
 				
+				if (key == ' ') { Shades.NextState = Shades.AnimState::Idle; }
+				if (key == 'h') { Shades.NextState = Shades.AnimState::Happy; }
+				if (key == 'x') { Shades.NextState = Shades.AnimState::Funny; }
+				if (key == 't') { Shades.NextState = Shades.AnimState::Test; }
+				
 				if (key == 65307) { run = false; }
 			}
 			else if (event.type == KeyRelease) 
@@ -36,9 +41,9 @@ int main()
 			}
 		}
 		
-		Shades.Update(GetMilliseconds());
 		
 		ForceClear();
+		Shades.Update(GetMilliseconds());
 		
 		Shades.Draw(100, 100);
 		
